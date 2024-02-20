@@ -18,8 +18,11 @@ class Film < ApplicationRecord
   validates :title, :genre, :release_date, :score, presence: true
   validates :score, numericality: { only_integer: false, greater_than_or_equal_to: 1, less_than_or_equal_to: 10 }
 
-  scope :action, -> { where(genre: 'Action') }
-  scope :drama, -> { where(genre: 'Drama') }
-  scope :scifi, -> { where(genre: 'Sci-fi') }
-  scope :comedy, -> { where(genre: 'Comedy') }
+  scope :by_genre, ->(genre) { where("genre LIKE ?", "%#{genre.to_s}%") }
+
+  class << self
+    [:action, :drama, :comedy, :science_fiction, :historical, :horror, :suspense, :fantasy].each do |genre|
+      define_method(genre) { by_genre(genre) }
+    end
+  end
 end
