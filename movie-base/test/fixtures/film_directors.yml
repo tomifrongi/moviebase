@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: film_directors
+#
+#  id          :integer          not null, primary key
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  director_id :integer          not null
+#  film_id     :integer          not null
+#
+# Indexes
+#
+#  index_film_directors_on_director_id  (director_id)
+#  index_film_directors_on_film_id      (film_id)
+#
+
+one:
+  film: one
+  director: one
+
+two:
+  film: two
+  director: two
