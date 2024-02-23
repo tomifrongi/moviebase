@@ -1218,3 +1218,444 @@ FOREIGN KEY ("film_id")
   [1m[36mFilm Create (0.7ms)[0m  [1m[32mINSERT INTO "films" ("title", "genre", "release_date", "score", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Grown ups"], ["genre", "Comedy"], ["release_date", "2006-01-17"], ["score", 6.0], ["created_at", "2024-02-20 16:13:17.730972"], ["updated_at", "2024-02-20 16:13:17.730972"]]
   [1m[36mTRANSACTION (0.8ms)[0m  [1m[36mcommit transaction[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ChangeGenreToArrayInFilms (20240220170949)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "afilms" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar DEFAULT NULL, "genre" varchar DEFAULT NULL, "release_date" date DEFAULT NULL, "score" float DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "afilms" ("id","title","genre","release_date","score","created_at","updated_at")
+                     SELECT "id","title","genre","release_date","score","created_at","updated_at" FROM "films"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "films"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ChangeGenreToArrayInFilms (20240220170949)
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ChangeGenreToArrayInFilms (20240220170949)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "afilms" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar DEFAULT NULL, "genre" varchar DEFAULT NULL, "release_date" date DEFAULT NULL, "score" float DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "afilms" ("id","title","genre","release_date","score","created_at","updated_at")
+                     SELECT "id","title","genre","release_date","score","created_at","updated_at" FROM "films"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "films"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "films" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar DEFAULT NULL, "release_date" date DEFAULT NULL, "score" float DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "films" ("id","title","release_date","score","created_at","updated_at")
+                     SELECT "id","title","release_date","score","created_at","updated_at" FROM "afilms"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "afilms"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ChangeGenreToArrayInFilms (20240220170949)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "afilms" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar DEFAULT NULL, "genre" varchar DEFAULT NULL, "release_date" date DEFAULT NULL, "score" float DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "afilms" ("id","title","genre","release_date","score","created_at","updated_at")
+                     SELECT "id","title","genre","release_date","score","created_at","updated_at" FROM "films"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "films"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ChangeGenreToArrayInFilms (20240220170949)
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ChangeGenreToArrayInFilms (20240220170949)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "afilms" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar DEFAULT NULL, "genre" varchar DEFAULT NULL, "release_date" date DEFAULT NULL, "score" float DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "afilms" ("id","title","genre","release_date","score","created_at","updated_at")
+                     SELECT "id","title","genre","release_date","score","created_at","updated_at" FROM "films"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "films"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ChangeGenreToArrayInFilms (20240220170949)
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (1.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "film_casts"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "film_casts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "film_id" integer NOT NULL, "actor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_film_casts_on_actor_id" ON "film_casts" ("actor_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_casts_on_film_id" ON "film_casts" ("film_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "film_directors"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "film_directors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "film_id" integer NOT NULL, "director_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_directors_on_director_id" ON "film_directors" ("director_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_directors_on_film_id" ON "film_directors" ("film_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "films"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "films" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "genre" varchar, "release_date" date, "score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "sources"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "sources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar, "path" varchar, "runtime" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_sources_on_film_id" ON "sources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "document" varchar, "document_type" varchar, "birth_date" date, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "asources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar DEFAULT NULL, "path" varchar DEFAULT NULL, "runtime" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_asources_on_film_id" ON "asources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "asources" ("id","format","path","runtime","created_at","updated_at","film_id")
+                     SELECT "id","format","path","runtime","created_at","updated_at","film_id" FROM "sources"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "sources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "sources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar DEFAULT NULL, "path" varchar DEFAULT NULL, "runtime" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL, CONSTRAINT "fk_rails_b120bf6fe6"
+FOREIGN KEY ("film_id")
+  REFERENCES "films" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_sources_on_film_id" ON "sources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "sources" ("id","format","path","runtime","created_at","updated_at","film_id")
+                     SELECT "id","format","path","runtime","created_at","updated_at","film_id" FROM "asources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "asources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "film_casts"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "film_casts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "film_id" integer NOT NULL, "actor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_film_casts_on_actor_id" ON "film_casts" ("actor_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_casts_on_film_id" ON "film_casts" ("film_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "film_directors"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "film_directors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "film_id" integer NOT NULL, "director_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_directors_on_director_id" ON "film_directors" ("director_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_directors_on_film_id" ON "film_directors" ("film_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "films"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "films" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "genre" varchar, "release_date" date, "score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "sources"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "sources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar, "path" varchar, "runtime" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_sources_on_film_id" ON "sources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "document" varchar, "document_type" varchar, "birth_date" date, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.7ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "asources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar DEFAULT NULL, "path" varchar DEFAULT NULL, "runtime" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_asources_on_film_id" ON "asources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "asources" ("id","format","path","runtime","created_at","updated_at","film_id")
+                     SELECT "id","format","path","runtime","created_at","updated_at","film_id" FROM "sources"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "sources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "sources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar DEFAULT NULL, "path" varchar DEFAULT NULL, "runtime" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL, CONSTRAINT "fk_rails_b120bf6fe6"
+FOREIGN KEY ("film_id")
+  REFERENCES "films" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_sources_on_film_id" ON "sources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "sources" ("id","format","path","runtime","created_at","updated_at","film_id")
+                     SELECT "id","format","path","runtime","created_at","updated_at","film_id" FROM "asources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "asources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Update (0.1ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'development', "updated_at" = '2024-02-20 18:29:53.906377' WHERE "ar_internal_metadata"."key" = 'environment'[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Update (0.0ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'test', "updated_at" = '2024-02-20 18:29:53.907066' WHERE "ar_internal_metadata"."key" = 'environment'[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFilm Create (0.4ms)[0m  [1m[32mINSERT INTO "films" ("title", "genre", "release_date", "score", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Fast and Furious"], ["genre", "Action"], ["release_date", "2000-11-17"], ["score", 6.0], ["created_at", "2024-02-20 18:30:31.817699"], ["updated_at", "2024-02-20 18:30:31.817699"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFilm Create (0.2ms)[0m  [1m[32mINSERT INTO "films" ("title", "genre", "release_date", "score", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Poor Things"], ["genre", "Drama"], ["release_date", "2023-01-17"], ["score", 9.0], ["created_at", "2024-02-20 18:30:31.870611"], ["updated_at", "2024-02-20 18:30:31.870611"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFilm Create (0.2ms)[0m  [1m[32mINSERT INTO "films" ("title", "genre", "release_date", "score", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Mr Bean"], ["genre", "Comedy"], ["release_date", "2006-01-17"], ["score", 9.0], ["created_at", "2024-02-20 18:30:31.880302"], ["updated_at", "2024-02-20 18:30:31.880302"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActor Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Tom Cruise"], ["document", "12345678"], ["document_type", "DNI"], ["birth_date", "1990-01-01"], ["created_at", "2024-02-20 18:30:31.914012"], ["updated_at", "2024-02-20 18:30:31.914012"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActor Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Vin Diesel"], ["document", "98765432"], ["document_type", "Pasaporte"], ["birth_date", "1985-05-15"], ["created_at", "2024-02-20 18:30:31.927956"], ["updated_at", "2024-02-20 18:30:31.927956"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActor Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Cavani Jr"], ["document", "11067431"], ["document_type", "Cedula"], ["birth_date", "1988-10-30"], ["created_at", "2024-02-20 18:30:31.938051"], ["updated_at", "2024-02-20 18:30:31.938051"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDirector Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Christopher Nolan"], ["document", "12345678"], ["document_type", "DNI"], ["birth_date", "1990-01-01"], ["created_at", "2024-02-20 18:30:31.969565"], ["updated_at", "2024-02-20 18:30:31.969565"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDirector Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Franchesco Virgolini"], ["document", "98765432"], ["document_type", "Pasaporte"], ["birth_date", "1985-05-15"], ["created_at", "2024-02-20 18:30:31.987318"], ["updated_at", "2024-02-20 18:30:31.987318"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDirector Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Merentiel Jr"], ["document", "11067431"], ["document_type", "Cedula"], ["birth_date", "1988-10-30"], ["created_at", "2024-02-20 18:30:31.987913"], ["updated_at", "2024-02-20 18:30:31.987913"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFilm Create (1.0ms)[0m  [1m[32mINSERT INTO "films" ("title", "genre", "release_date", "score", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Fast and Furious"], ["genre", "[action, comedy]"], ["release_date", "2000-11-17"], ["score", 6.0], ["created_at", "2024-02-20 18:31:01.678347"], ["updated_at", "2024-02-20 18:31:01.678347"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mFilm Load (0.4ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE ('comedy' = ANY(genres)) /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "film_casts"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "film_casts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "film_id" integer NOT NULL, "actor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_film_casts_on_actor_id" ON "film_casts" ("actor_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_casts_on_film_id" ON "film_casts" ("film_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "film_directors"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "film_directors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "film_id" integer NOT NULL, "director_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_film_directors_on_director_id" ON "film_directors" ("director_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_directors_on_film_id" ON "film_directors" ("film_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "films"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "films" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "genre" varchar, "release_date" date, "score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "sources"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "sources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar, "path" varchar, "runtime" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_sources_on_film_id" ON "sources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "document" varchar, "document_type" varchar, "birth_date" date, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "asources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar DEFAULT NULL, "path" varchar DEFAULT NULL, "runtime" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_asources_on_film_id" ON "asources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "asources" ("id","format","path","runtime","created_at","updated_at","film_id")
+                     SELECT "id","format","path","runtime","created_at","updated_at","film_id" FROM "sources"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "sources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "sources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar DEFAULT NULL, "path" varchar DEFAULT NULL, "runtime" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL, CONSTRAINT "fk_rails_b120bf6fe6"
+FOREIGN KEY ("film_id")
+  REFERENCES "films" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_sources_on_film_id" ON "sources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "sources" ("id","format","path","runtime","created_at","updated_at","film_id")
+                     SELECT "id","format","path","runtime","created_at","updated_at","film_id" FROM "asources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "asources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "film_casts"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "film_casts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "film_id" integer NOT NULL, "actor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_film_casts_on_actor_id" ON "film_casts" ("actor_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_casts_on_film_id" ON "film_casts" ("film_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "film_directors"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "film_directors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "film_id" integer NOT NULL, "director_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_film_directors_on_director_id" ON "film_directors" ("director_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_directors_on_film_id" ON "film_directors" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "films"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "films" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "genre" varchar, "release_date" date, "score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "sources"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "sources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar, "path" varchar, "runtime" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_sources_on_film_id" ON "sources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "document" varchar, "document_type" varchar, "birth_date" date, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (3.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "asources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar DEFAULT NULL, "path" varchar DEFAULT NULL, "runtime" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_asources_on_film_id" ON "asources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "asources" ("id","format","path","runtime","created_at","updated_at","film_id")
+                     SELECT "id","format","path","runtime","created_at","updated_at","film_id" FROM "sources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "sources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "sources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar DEFAULT NULL, "path" varchar DEFAULT NULL, "runtime" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL, CONSTRAINT "fk_rails_b120bf6fe6"
+FOREIGN KEY ("film_id")
+  REFERENCES "films" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_sources_on_film_id" ON "sources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "sources" ("id","format","path","runtime","created_at","updated_at","film_id")
+                     SELECT "id","format","path","runtime","created_at","updated_at","film_id" FROM "asources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "asources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Update (0.1ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'development', "updated_at" = '2024-02-20 18:31:40.718599' WHERE "ar_internal_metadata"."key" = 'environment'[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Update (0.0ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'test', "updated_at" = '2024-02-20 18:31:40.733703' WHERE "ar_internal_metadata"."key" = 'environment'[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActor Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Tom Cruise"], ["document", "12345678"], ["document_type", "DNI"], ["birth_date", "1990-01-01"], ["created_at", "2024-02-20 18:31:59.540019"], ["updated_at", "2024-02-20 18:31:59.540019"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActor Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Vin Diesel"], ["document", "98765432"], ["document_type", "Pasaporte"], ["birth_date", "1985-05-15"], ["created_at", "2024-02-20 18:31:59.556942"], ["updated_at", "2024-02-20 18:31:59.556942"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActor Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Cavani Jr"], ["document", "11067431"], ["document_type", "Cedula"], ["birth_date", "1988-10-30"], ["created_at", "2024-02-20 18:31:59.566353"], ["updated_at", "2024-02-20 18:31:59.566353"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDirector Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Christopher Nolan"], ["document", "12345678"], ["document_type", "DNI"], ["birth_date", "1990-01-01"], ["created_at", "2024-02-20 18:31:59.632625"], ["updated_at", "2024-02-20 18:31:59.632625"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDirector Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Franchesco Virgolini"], ["document", "98765432"], ["document_type", "Pasaporte"], ["birth_date", "1985-05-15"], ["created_at", "2024-02-20 18:31:59.650234"], ["updated_at", "2024-02-20 18:31:59.650234"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDirector Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Merentiel Jr"], ["document", "11067431"], ["document_type", "Cedula"], ["birth_date", "1988-10-30"], ["created_at", "2024-02-20 18:31:59.650846"], ["updated_at", "2024-02-20 18:31:59.650846"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFilm Create (0.3ms)[0m  [1m[32mINSERT INTO "films" ("title", "genre", "release_date", "score", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Fast and Furious"], ["genre", "[action,drama,comedy]"], ["release_date", "2000-11-17"], ["score", 6.0], ["created_at", "2024-02-20 18:32:23.863556"], ["updated_at", "2024-02-20 18:32:23.863556"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mFilm Load (0.3ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE ('action' = ANY(genre)) /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "film_casts"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "film_casts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "film_id" integer NOT NULL, "actor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_film_casts_on_actor_id" ON "film_casts" ("actor_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_casts_on_film_id" ON "film_casts" ("film_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "film_directors"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "film_directors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "film_id" integer NOT NULL, "director_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_directors_on_director_id" ON "film_directors" ("director_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_directors_on_film_id" ON "film_directors" ("film_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "films"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "films" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "genre" varchar, "release_date" date, "score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "sources"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "sources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar, "path" varchar, "runtime" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_sources_on_film_id" ON "sources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "document" varchar, "document_type" varchar, "birth_date" date, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "asources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar DEFAULT NULL, "path" varchar DEFAULT NULL, "runtime" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_asources_on_film_id" ON "asources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "asources" ("id","format","path","runtime","created_at","updated_at","film_id")
+                     SELECT "id","format","path","runtime","created_at","updated_at","film_id" FROM "sources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "sources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "sources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar DEFAULT NULL, "path" varchar DEFAULT NULL, "runtime" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL, CONSTRAINT "fk_rails_b120bf6fe6"
+FOREIGN KEY ("film_id")
+  REFERENCES "films" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_sources_on_film_id" ON "sources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "sources" ("id","format","path","runtime","created_at","updated_at","film_id")
+                     SELECT "id","format","path","runtime","created_at","updated_at","film_id" FROM "asources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "asources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "film_casts"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "film_casts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "film_id" integer NOT NULL, "actor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_casts_on_actor_id" ON "film_casts" ("actor_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_casts_on_film_id" ON "film_casts" ("film_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "film_directors"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "film_directors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "film_id" integer NOT NULL, "director_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_directors_on_director_id" ON "film_directors" ("director_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_film_directors_on_film_id" ON "film_directors" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "films"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "films" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "genre" varchar, "release_date" date, "score" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "sources"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "sources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar, "path" varchar, "runtime" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_sources_on_film_id" ON "sources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "document" varchar, "document_type" varchar, "birth_date" date, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.7ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "asources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar DEFAULT NULL, "path" varchar DEFAULT NULL, "runtime" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_asources_on_film_id" ON "asources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "asources" ("id","format","path","runtime","created_at","updated_at","film_id")
+                     SELECT "id","format","path","runtime","created_at","updated_at","film_id" FROM "sources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "sources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "sources" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "format" varchar DEFAULT NULL, "path" varchar DEFAULT NULL, "runtime" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "film_id" integer NOT NULL, CONSTRAINT "fk_rails_b120bf6fe6"
+FOREIGN KEY ("film_id")
+  REFERENCES "films" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_sources_on_film_id" ON "sources" ("film_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "sources" ("id","format","path","runtime","created_at","updated_at","film_id")
+                     SELECT "id","format","path","runtime","created_at","updated_at","film_id" FROM "asources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "asources"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Update (0.3ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'development', "updated_at" = '2024-02-20 18:34:49.235705' WHERE "ar_internal_metadata"."key" = 'environment'[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Update (0.0ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'test', "updated_at" = '2024-02-20 18:34:49.250858' WHERE "ar_internal_metadata"."key" = 'environment'[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActor Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Tom Cruise"], ["document", "12345678"], ["document_type", "DNI"], ["birth_date", "1990-01-01"], ["created_at", "2024-02-20 18:34:59.246435"], ["updated_at", "2024-02-20 18:34:59.246435"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActor Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Vin Diesel"], ["document", "98765432"], ["document_type", "Pasaporte"], ["birth_date", "1985-05-15"], ["created_at", "2024-02-20 18:34:59.261887"], ["updated_at", "2024-02-20 18:34:59.261887"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActor Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Cavani Jr"], ["document", "11067431"], ["document_type", "Cedula"], ["birth_date", "1988-10-30"], ["created_at", "2024-02-20 18:34:59.271446"], ["updated_at", "2024-02-20 18:34:59.271446"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDirector Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Christopher Nolan"], ["document", "12345678"], ["document_type", "DNI"], ["birth_date", "1990-01-01"], ["created_at", "2024-02-20 18:34:59.340448"], ["updated_at", "2024-02-20 18:34:59.340448"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDirector Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Franchesco Virgolini"], ["document", "98765432"], ["document_type", "Pasaporte"], ["birth_date", "1985-05-15"], ["created_at", "2024-02-20 18:34:59.357418"], ["updated_at", "2024-02-20 18:34:59.357418"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDirector Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "document", "document_type", "birth_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Merentiel Jr"], ["document", "11067431"], ["document_type", "Cedula"], ["birth_date", "1988-10-30"], ["created_at", "2024-02-20 18:34:59.358032"], ["updated_at", "2024-02-20 18:34:59.358032"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFilm Create (0.3ms)[0m  [1m[32mINSERT INTO "films" ("title", "genre", "release_date", "score", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Fast and Furious"], ["genre", "[action,comedy,drama]"], ["release_date", "2000-11-17"], ["score", 6.0], ["created_at", "2024-02-20 18:35:22.957077"], ["updated_at", "2024-02-20 18:35:22.957077"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mFilm Load (0.2ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE (genre LIKE '%action%') /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mFilm Load (0.4ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE (genre LIKE '%comedy%') /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mFilm Load (0.3ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE (genre LIKE '%science_fiction%') /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFilm Create (0.6ms)[0m  [1m[32mINSERT INTO "films" ("title", "genre", "release_date", "score", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Poor Things"], ["genre", "Drama"], ["release_date", "2023-01-17"], ["score", 9.0], ["created_at", "2024-02-20 18:36:08.807228"], ["updated_at", "2024-02-20 18:36:08.807228"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mFilm Load (0.4ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE (genre LIKE '%drama%') /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mFilm Load (0.1ms)[0m  [1m[34mSELECT "films".* FROM "films" ORDER BY "films"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mFilm Load (0.6ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE (genre LIKE '%drama%') /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mFilm Load (0.1ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE (genre LIKE '%comedy%') /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mFilm Load (0.4ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE (genre LIKE '%drama%') /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFilm Create (0.4ms)[0m  [1m[32mINSERT INTO "films" ("title", "genre", "release_date", "score", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["title", "Mr Bean"], ["genre", "comedy"], ["release_date", "2006-01-17"], ["score", 9.3], ["created_at", "2024-02-20 18:39:11.921983"], ["updated_at", "2024-02-20 18:39:11.921983"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mFilm Load (0.3ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE (genre LIKE '%comedy%') /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mFilm Load (0.1ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE "films"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mFilm Update (0.5ms)[0m  [1m[33mUPDATE "films" SET "genre" = ?, "updated_at" = ? WHERE "films"."id" = ?[0m  [["genre", "[comedy]"], ["updated_at", "2024-02-20 18:40:44.406762"], ["id", 3]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mFilm Load (0.3ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE (genre LIKE '%comedy%') /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mFilm Load (0.1ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE (genre LIKE '%comedy%') /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mFilm Load (0.5ms)[0m  [1m[34mSELECT "films".* FROM "films" WHERE (genre LIKE '%drama%') /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
